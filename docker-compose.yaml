@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      container_name: med-fe
       shm_size: "8gb"
     volumes:
       - .:/app

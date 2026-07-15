@@ -11,7 +11,7 @@ WORKDIR /app
 # 必要ライブラリのコピー
 COPY requirements.txt .
 
-# git + tzdata + OpenCVのインストール
+# git + tzdata + OpenCV のインストール
 RUN apt-get update \
  && apt-get install -y git \
  && apt-get install -y --no-install-recommends tzdata libopencv-dev \
@@ -19,6 +19,14 @@ RUN apt-get update \
  && dpkg-reconfigure --frontend noninteractive tzdata \
  && rm -rf /var/lib/apt/lists/*
 
+# uv のインストール
+RUN python3 -m pip install --upgrade pip uv
+
+# uv で Python 3.10 の仮想環境を作成
+RUN uv python install 3.10 && \
+    uv venv /opt/venv --python 3.10
+
+ENV PATH=/opt/venv/bin:$PATH
+
 # Pythonライブラリのインストール
-RUN python3 -m pip install --upgrade pip && \
-    python3 -m pip install -r requirements.txt
+RUN uv pip install --python /opt/venv/bin/python -r requirements.txt
