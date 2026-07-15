@@ -22,9 +22,9 @@ RUN apt-get update \
 # uv のインストール
 RUN python3 -m pip install --upgrade pip uv
 
-# uv で Python 3.10 の仮想環境を作成
-RUN uv python install 3.10 && \
-    uv venv /opt/venv --python 3.10
+# uv で Python 3.9 の仮想環境を作成
+RUN uv python install 3.9 && \
+    uv venv /opt/venv --python 3.9
 
 ENV PATH=/opt/venv/bin:$PATH
 
