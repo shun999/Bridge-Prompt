@@ -1,0 +1,15 @@
+# docker-compose.yaml
+services:
+  ml:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      shm_size: "8gb"
+    volumes:
+      - .:/app
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    tty: true
